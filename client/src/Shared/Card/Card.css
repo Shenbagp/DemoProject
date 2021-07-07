@@ -1,0 +1,12 @@
+.card {
+    
+    border: 2px solid #ccc;
+    background-color: #fff;    
+    max-height: 4.1rem;
+    box-shadow: 3px 3px 1px ;
+    padding :  0.5rem;
+    margin:1rem 2rem;
+    width: 90%;
+    
+}
+ 

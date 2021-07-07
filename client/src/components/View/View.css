@@ -1,0 +1,28 @@
+.buttonclass{
+           
+      padding: .5rem;
+      background-color: white;       
+      font-weight: bold;
+      color:#2d1152;
+      font:inherit;
+      border : 2px solid #2d1152;
+      cursor :pointer;       
+      font-size: 12px;
+      font-weight: 700;
+      margin : 0 1rem;        
+}
+
+.position{
+    text-align: right;
+    margin : 1rem
+}
+  .buttonclass:hover,
+  .buttonclass:active {
+    background-color :#2d1152;
+    color:white;
+    border:none;
+  }
+
+  .view {
+      text-align:center;
+  }

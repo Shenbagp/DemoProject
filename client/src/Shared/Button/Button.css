@@ -1,0 +1,26 @@
+.buttonclass{           
+    padding: .5rem;
+    background-color: white;       
+    font-weight: bold;
+    color:#2d1152;
+    font:inherit;
+    border : 2px solid #2d1152;
+    cursor :pointer;       
+    font-size: 12px;
+    font-weight: 700;
+    box-sizing: border-box;
+           
+}
+
+ 
+.buttonclass:hover,
+.buttonclass:active {
+  background-color :#2d1152;
+  color:white;
+  border:none;
+}
+
+.buttonclass:disabled{
+  cursor: none;
+  background-color: #ccc;
+}

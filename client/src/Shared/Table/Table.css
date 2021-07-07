@@ -1,0 +1,45 @@
+/* table, td {
+    border-bottom: 1px ridge black;
+  } */
+
+  .table__container{
+    margin:1rem 2rem;
+    width: 40%;
+  }
+  table{
+    margin:0;
+    margin-left : 8px;    
+    border: 1px solid #ccc ; 
+  }
+   
+  tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+    margin-left: 1rem;
+ }
+ th {   
+  max-width: 100px;
+  border-bottom: 1px solid black;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: right;
+  text-align: center;
+  margin-left:40px;
+  background-color: #ccc;
+}
+
+tr,td, th{
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+
+}
+
+td,th {
+  min-width:6rem;
+  padding : 3px 3px;
+}
+
+tr:nth-child(even) {  
+  background-color: #e8e9e0;  
+}

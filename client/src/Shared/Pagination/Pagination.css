@@ -1,0 +1,31 @@
+.containerPagination {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    max-width: 20px;
+    margin-left: 50%;
+    margin:1rem 2rem;
+    width: 40%;
+  }
+ 
+  .items {
+    margin-top: 20px;
+    width: 48px;
+    text-align: center;
+    margin-right: 1rem;
+    min-width: 24px;
+    cursor: pointer;
+    border: none;
+    background-color: inherit;
+    display: inline-block;
+  }
+
+  .items:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
+  .selected-item {
+    font-weight: 600;
+    text-decoration: underline;
+  }

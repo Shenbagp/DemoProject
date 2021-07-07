@@ -1,0 +1,133 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
+}
+.search__company {
+  width: 50%;
+  position: relative;
+}
+.search__inputField {
+  padding: 0.75rem;
+  width: 70%;
+  border: 1px solid steelblue;
+  margin-left: 10%;
+  background-color: rgb(247, 243, 243);
+  border-radius: 25px;
+}
+
+.search__inputField:active,
+.search__inputField:hover {
+  border-radius: 25px;
+  background-color: #fff;
+  outline: none;
+  border-color: rgb(26, 108, 175);
+}
+
+.search__inputField:focus-visible {
+  outline: none;
+}
+.autoSuggestion__container{
+    margin-top: "2px";
+     position: "absolute";
+      width: "100%";
+}
+.suggestion {
+  font-size: 1rem;
+  background-color: #fff;
+  color: #2d1152;
+  cursor: pointer;
+  display: block;
+  width: 72%;
+  text-align: center;
+  font-weight: 600;
+  margin-left: 10%;
+  border: 1px solid #ccc;
+}
+
+.suggestion:hover,
+.suggestion:active {
+  color: #2d1152;
+  background-color: #ccc;
+  border: 1px outset #ccc;
+}
+
+.buttonclass {
+  padding: 0.5rem;
+  background-color: white;
+  font-weight: bold;
+  color: #2d1152;
+  font: inherit;
+  border: 2px solid #2d1152;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.position {
+  text-align: left;
+  margin: 1rem;
+}
+
+.buttonclass:hover,
+.buttonclass:active {
+  background-color: #2d1152;
+  color: white;
+  border: none;
+}
+
+.view {
+  text-align: center;
+}
+
+.card__container {
+  display: flex;
+  flex-direction: column;
+}
+.card__display {
+  display: flex;
+  justify-content: space-around;
+  margin: 0.5rem;
+}
+
+.main__section {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+}
+
+.pagination__section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.pagination__section select {
+    margin-top: 22px; 
+}
+
+.pagesize {
+  display: inline-block;
+  margin-right: 4rem;
+  margin-top: 0.5rem;
+}
+.axis__style {
+  width: 15%;
+  margin-left: 9px;
+  margin-bottom: 2rem;
+  border: 1px solid #ccc;
+}
+.year__selection {
+  font-weight: bold;
+  margin-left: 1.8rem;
+  margin-bottom: 2.8rem;
+  display: inline-block;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
