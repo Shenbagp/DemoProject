@@ -1,4 +1,4 @@
-import  { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import * as _ from "lodash-es";
 import * as Constants from "./../../constant";
 import Table from "../../Shared/Table/Table";
@@ -41,7 +41,6 @@ function Searchbar() {
     setCardData("");
     setAutoSugest([]);
     searchItem = event.target.value;
-    console.log("searchItem", searchItem);
     searchItem && debounceSearch(searchItem);
   };
 
@@ -52,25 +51,20 @@ function Searchbar() {
 
   const searchCompanyList = (searchItem: string) => {
     ListService.companyService(searchItem).then((res: Array<string>) => {
-      console.log("response in the handler", res);
       const autoSuggest = res;
       autoSuggest && setAutoSugest(autoSuggest);
-      console.log("autoSuggest -", autoSuggest);
     });
   };
 
   const autosuggestHandler = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-    console.log("!! - ", event.currentTarget.id);
     const value = event.currentTarget.id;
     setAutoSugest([]);
     setSearchItem(value);
-    //("Table View")
   };
 
   const TableClickHandler = (id: string) => {
-    console.log("Handler", id);
     setTableData("");
     setCardData("");
     setView(id);
@@ -90,13 +84,10 @@ function Searchbar() {
     pageSize: number,
     id: string
   ) => {
-    console.log(" fetch Card Data");
     let cardData_: any = [];
     FetchService.fetchRecords(searchItem, currentPage, pageSize).then(
       (res: companyServiceResponse) => {
-        console.log("Inside View Component- res", res.data);
         if (res.data && res.data.length) {
-          console.log("Inside Card  loop");
           cardData_ = res.data.map((item: companyDetails) => {
             return (
               <Card key={item._id}>
@@ -148,11 +139,10 @@ function Searchbar() {
               </Card>
             );
           });
-          console.log("data card__ ", cardData_);
+
           setCardData(cardData_);
           setData(res.data);
           //setView(id) ;
-          console.log("121 %% data Card", cardData, view);
         }
       }
     );
@@ -165,11 +155,10 @@ function Searchbar() {
     id: string
   ) => {
     let data_: any = "";
-    console.log("inside fetchTableData");
+
     FetchService.fetchRecords(searchItem, currentPage, pageSize).then(
       (res: companyServiceResponse) => {
         if (res.data && res.data.length) {
-          console.log("##");
           data_ = res.data.map((item: companyDetails, index: number) => (
             <tr key={item._id}>
               <td> {moment(item.Date).format("MMM DD yyyy")}</td>
@@ -182,8 +171,6 @@ function Searchbar() {
               <td key={item.Company + index}>{item.Company}</td>
             </tr>
           ));
-
-          console.log(data_);
         }
         setTableData(data_);
         setData(res.data);
@@ -192,17 +179,10 @@ function Searchbar() {
   };
 
   const onPageChange = (clickedPage: number) => {
-    console.log("inside Page Chnage");
-    console.log("clickedPage", clickedPage);
-    console.log("currentPage", currentPage);
     if (currentPage !== clickedPage) {
-      console.log("insied first Loop");
-      console.log(view);
       if (view === "Table View") {
-        console.log(" view in Pagination", view);
         fetchTableData(searchItem, clickedPage, pageSize, view);
       } else {
-        console.log(" view in Pagination", view);
         fetchCardData(searchItem, clickedPage, pageSize, view);
       }
       setCurrentPage(clickedPage);
@@ -213,7 +193,6 @@ function Searchbar() {
   const axisselectChangeHandler = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    console.log(event.currentTarget.value);
     let value = event.currentTarget.value;
     setXaxis(value);
   };
@@ -222,22 +201,16 @@ function Searchbar() {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const pageSize = parseInt(event.target.value, 10);
-    let currentPage = 1
+    let currentPage = 1;
     if (view === "Table View") {
-      console.log(" view in Pagination", view);
       fetchTableData(searchItem, 1, pageSize, view);
     } else {
-      console.log(" view in Pagination", view);
       fetchCardData(searchItem, 1, pageSize, view);
     }
     setPageSize(pageSize);
-    setCurrentPage(currentPage) ;
-
-
-    console.log(pageSize);
+    setCurrentPage(currentPage);
   };
-  const graphYearClickHandler = ( year : string) => {
-    
+  const graphYearClickHandler = (year: string) => {
     setGraphYear(year);
   };
   return (
@@ -300,8 +273,13 @@ function Searchbar() {
                   onPageChange={onPageChange}
                   currentPage={currentPage}
                 />
-                <select value={pageSize} onChange ={(event) => pageSizeChangeHandler(event)} >
-                  { (Constants.Pagesize).map( (size : number) => <option value={size} >{ size}</option> )}
+                <select
+                  value={pageSize}
+                  onChange={(event) => pageSizeChangeHandler(event)}
+                >
+                  {Constants.Pagesize.map((size: number) => (
+                    <option value={size}>{size}</option>
+                  ))}
                 </select>
               </div>
             )}
@@ -335,7 +313,7 @@ function Searchbar() {
                     className="year__selection"
                     key={year}
                     value="graphYear"
-                    onClick={ ()=>graphYearClickHandler(year)}
+                    onClick={() => graphYearClickHandler(year)}
                   >
                     {" "}
                     {year}
