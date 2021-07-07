@@ -95,17 +95,17 @@ function Searchbar() {
                   <div className="card__display">
                     <span>
                       {" "}
-                      <label style={{ fontStyle: "italic" }}>Date</label> :
+                      <label className="table__label">Date</label> :
                       {moment(item.Date).format("MMM DD yyyy")}
                     </span>
                     <span>
                       {" "}
-                      <label style={{ fontStyle: "italic" }}> Open</label> :
+                      <label className="table__label"> Open</label> :
                       {item.Open.toFixed(2)}
                     </span>
                     <span>
                       {" "}
-                      <label style={{ fontStyle: "italic" }}> High </label> :
+                      <label className="table__label"> High </label> :
                       {item.High.toFixed(2)}
                     </span>
                     <span>
@@ -119,19 +119,19 @@ function Searchbar() {
                   </div>
                   <div className="card__display">
                     <span>
-                      <label style={{ fontStyle: "italic" }}>Volume</label> :
+                      <label className="table__label">Volume</label> :
                       {item.Volume.toFixed(2)}
                     </span>
                     <span>
-                      <label style={{ fontStyle: "italic" }}>Close</label> :
+                      <label className="table__label">Close</label> :
                       {item.Close.toFixed(2)}
                     </span>
                     <span>
-                      <label style={{ fontStyle: "italic" }}>Low</label> :
+                      <label className="table__label">Low</label> :
                       {item.Low.toFixed(2)}
                     </span>
                     <span>
-                      <label style={{ fontStyle: "italic" }}>Company</label> :
+                      <label className="table__label">Company</label> :
                       {item.Company}
                     </span>
                   </div>

@@ -131,3 +131,7 @@
   background-color: #fff;
   cursor: pointer;
 }
+
+.table__label{
+  font-style: italic;
+}
