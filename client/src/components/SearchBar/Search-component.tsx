@@ -29,17 +29,19 @@ function Searchbar() {
   const [graphYear, setGraphYear] = useState("");
 
   useEffect(() => {
-    const initialData = "AAPL";
-    fetchTableData(initialData, currentPage, pageSize, "Card View");
+    const initialData = "AAPL";     
+    fetchTableData(initialData, 1, pageSize, "Card View");
   }, []);
 
   const searchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     let searchItem = event.target.value;
+    const resetPage = 1 ; 
     setSearchItem(searchItem);
     setData([]);
     setTableData("");
     setCardData("");
     setAutoSugest([]);
+    setCurrentPage(resetPage)
     searchItem = event.target.value;
     searchItem && debounceSearch(searchItem);
   };
@@ -65,29 +67,35 @@ function Searchbar() {
   };
 
   const TableClickHandler = (id: string) => {
-    setTableData("");
-    setCardData("");
+    //setTableData("");
+    //setCardData("");
+    console.log(view)
+    console.log("Table CLick Handler",id)
     setView(id);
-    fetchTableData(searchItem, currentPage, pageSize, "Card View");
+    
+    (!( tableData && tableData.length > 0))  && fetchTableData(searchItem, currentPage, pageSize, "Card View");
   };
   const CardClickHandler = (id: string) => {
-    setTableData("");
-    setCardData("");
+    //setTableData("");
+    //setCardData("");
+    console.log("card Click Handler ---" , id)
     setView(id);
     setCurrentPage(currentPage);
-    fetchCardData(searchItem, currentPage, pageSize, "Table View");
+    
+    ( !(cardData && cardData.length > 0) )  && fetchCardData(searchItem, currentPage, pageSize, "Table View");
   };
 
   const fetchCardData = (
     searchItem: string,
-    currentPage: number,
+    clickedPage: number,
     pageSize: number,
     id: string
   ) => {
-    let cardData_: any = [];
-    FetchService.fetchRecords(searchItem, currentPage, pageSize).then(
+    let cardData_: any = [];      
+    FetchService.fetchRecords(searchItem, clickedPage, pageSize).then(
       (res: companyServiceResponse) => {
-        if (res.data && res.data.length) {
+        console.log("Fetching new sets of data ")
+        if (res.data && res.data.length ) {
           cardData_ = res.data.map((item: companyDetails) => {
             return (
               <Card key={item._id}>
@@ -139,10 +147,9 @@ function Searchbar() {
               </Card>
             );
           });
-
           setCardData(cardData_);
-          setData(res.data);
-          //setView(id) ;
+          setData(res.data);          
+          setCurrentPage(clickedPage)
         }
       }
     );
@@ -150,42 +157,48 @@ function Searchbar() {
 
   const fetchTableData = (
     searchItem: string,
-    currentPage: number,
+    clickedPage: number,
     pageSize: number,
     id: string
   ) => {
-    let data_: any = "";
-
-    FetchService.fetchRecords(searchItem, currentPage, pageSize).then(
-      (res: companyServiceResponse) => {
-        if (res.data && res.data.length) {
-          data_ = res.data.map((item: companyDetails, index: number) => (
-            <tr key={item._id}>
-              <td> {moment(item.Date).format("MMM DD yyyy")}</td>
-              <td key={item.Open}>{item.Open.toFixed(2)}</td>
-              <td key={item.High}>{item.High.toFixed(2)}</td>
-              <td key={item.Low}>{item.Low.toFixed(2)}</td>
-              <td key={item.Close}>{item.Close.toFixed(2)}</td>
-              <td key={item.AdjClose}>{item.AdjClose.toFixed(2)}</td>
-              <td key={item.Volume}>{item.Volume.toFixed(2)}</td>
-              <td key={item.Company + index}>{item.Company}</td>
-            </tr>
+    let data_: any = "";   
+      console.log("No Data for Table View")
+      FetchService.fetchRecords(searchItem, clickedPage, pageSize).then(      
+        (res: companyServiceResponse) => {
+          console.log("received Data")
+          if (res.data && res.data.length) {
+            data_ = res.data.map((item: companyDetails, index: number) => (
+              <tr key={item._id}>
+                <td> {moment(item.Date).format("MMM DD yyyy")}</td>
+                <td key={item.Open}>{item.Open.toFixed(2)}</td>
+                <td key={item.High}>{item.High.toFixed(2)}</td>
+                <td key={item.Low}>{item.Low.toFixed(2)}</td>
+                <td key={item.Close}>{item.Close.toFixed(2)}</td>
+                <td key={item.AdjClose}>{item.AdjClose.toFixed(2)}</td>
+                <td key={item.Volume}>{item.Volume.toFixed(2)}</td>
+                <td key={item.Company + index}>{item.Company}</td>
+              </tr>
           ));
         }
         setTableData(data_);
         setData(res.data);
+        setCurrentPage(clickedPage)
       }
     );
   };
 
   const onPageChange = (clickedPage: number) => {
-    if (currentPage !== clickedPage) {
-      if (view === "Table View") {
+    console.log('OnPage Change');
+    console.log(clickedPage , currentPage)    
+    if (currentPage !== clickedPage) {      
+      if (view === "Table View") {       
+        
         fetchTableData(searchItem, clickedPage, pageSize, view);
       } else {
+        
         fetchCardData(searchItem, clickedPage, pageSize, view);
       }
-      setCurrentPage(clickedPage);
+      
     }
     return;
   };
@@ -240,13 +253,12 @@ function Searchbar() {
           </div>
         </div>
 
-        <div className="position">
+        <div className="position__button">
           {view === "Card View" ? (
             <Button
               clickHandler={TableClickHandler}
               id="Table View"
-              label="Click for Table View"
-              disabled={data && data.length > 0 ? false : true}
+              label="Click for Table View"              
             />
           ) : (
             <Button
@@ -261,12 +273,12 @@ function Searchbar() {
       <main className="main__section">
         <section style={{ margin: "1rem", marginRight: "2rem" }}>
           <div>
-            {tableData && searchItem && (
+            {tableData && searchItem &&  view === "Table View" &&  (
               <div>
                 <Table data={tableData} Headers={Constants.Headers} />
               </div>
             )}
-            {view === "Card View" && searchItem && cardData}
+            { view === "Card View" && searchItem && cardData  }
             {(tableData || cardData) && (
               <div className="pagination__section">
                 <Pagination
@@ -286,7 +298,7 @@ function Searchbar() {
           </div>
         </section>
         <section style={{ margin: "1rem" }}>
-          {(tableData || cardData) && (
+          {(tableData  || cardData) && (
             <div style={{ width: "120%", marginLeft: "2rem" }}>
               <label>Select Criteria</label>
               <select
@@ -295,7 +307,7 @@ function Searchbar() {
                 value={xaxis}
                 onChange={axisselectChangeHandler}
               >
-                {Constants.Headers.filter((header) => header !== "Date").map(
+                {Constants.Grapheaders.filter((header) => header !== "Date").map(
                   (headers: string) => (
                     <option
                       style={{ width: "60%" }}

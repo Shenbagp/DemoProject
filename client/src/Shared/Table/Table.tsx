@@ -9,7 +9,7 @@ interface Props {
 
 const Table:React.FC<Props> = (props:Props) => {
     const {data , Headers } = props
-    console.log("Table Component",data)
+   
     return (
         <div className="table__container">
             <table>
